@@ -16,8 +16,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *detailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UISwitch *taskCompleteSwitch;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UITextView *notesTextView;
+@property (weak, nonatomic) IBOutlet UIButton *calendarIconButton;
+@property (weak, nonatomic) IBOutlet UIButton *timeIconButton;
+
 
 @end
 

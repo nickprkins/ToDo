@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "note.png",
       "scale" : "1x"
     },
     {

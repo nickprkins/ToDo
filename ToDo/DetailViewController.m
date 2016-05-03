@@ -27,15 +27,19 @@
 
 - (void)configureView {
     // Update the user interface for the detail item.
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.navigationItem.title = [[self.detailItem valueForKey:@"title"] description];
     if (self.detailItem) {
         self.detailTextField.text = [[self.detailItem valueForKey:@"title"] description];
-        if ([[[self.detailItem valueForKey:@"done"]description]  isEqual: @NO]) {
-            [self.taskCompleteSwitch setOn:NO animated:YES];
-            self.statusLabel.text = [NSString stringWithFormat:@"Task Incomplete "];
-        }else{
-            [self.taskCompleteSwitch setOn:YES animated:YES];
-            self.statusLabel.text = [NSString stringWithFormat:@"Task Complete "];
-        }
+        NSNumber *whatDone = [self.detailItem valueForKey:@"done"];
+        self.notesTextView.text = [[self.detailItem valueForKey:@"notes"] description];
+//        if ([whatDone  isEqual: @NO]) {
+//            [self.taskCompleteSwitch setOn:NO animated:YES];
+//            self.statusLabel.text = [NSString stringWithFormat:@"Task Incomplete"];
+//        }else{
+//            [self.taskCompleteSwitch setOn:YES animated:YES];
+//            self.statusLabel.text = [NSString stringWithFormat:@"Task Complete"];
+//        }
     }
 }
 
@@ -59,6 +63,7 @@
 -(IBAction)saveButtonTapped:(UIButton*)sender{
 
     [self.detailItem setValue:self.detailTextField.text forKey:@"title"];
+    [self.detailItem setValue:self.notesTextView.text forKey:@"notes"];
     NSError *error;
     
     if (![self.detailItem.managedObjectContext save:&error]) {

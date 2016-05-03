@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"ToDo List";
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -44,9 +45,10 @@
         
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:@"Enter a title for To do" forKey:@"title"];
+    [newManagedObject setValue:@"A New ToDo" forKey:@"title"];
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
     [newManagedObject setValue:@NO forKey:@"done"];
+    [newManagedObject setValue:@"" forKey:@"notes"];
         
     // Save the context.
     NSError *error = nil;
@@ -116,6 +118,7 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
+    
     cell.textLabel.text = [[object valueForKey:@"title"] description];
     NSDate * myDate = [object valueForKey:@"timeStamp"];
     
@@ -125,16 +128,15 @@
     NSString *finalDate = [formatter stringFromDate:myDate];
     
     cell.detailTextLabel.text = finalDate;
-    
-    if ([[[object valueForKey:@"done"] description]  isEqual: @NO]) {
-        NSLog(@"%@", [object valueForKey:@"done"]);
-        cell.imageView.image = [UIImage imageNamed:@"uncheck.png"];
-    }else{
-        cell.imageView.image = [UIImage imageNamed:@"check.png"];
-    }
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleChecking:)];
-    [cell.imageView addGestureRecognizer:tap];
-    cell.imageView.userInteractionEnabled = YES;
+//    NSNumber *whatDone = [object valueForKey:@"done"];
+//    if ([whatDone  isEqual: @NO]) {
+//        cell.imageView.image = [UIImage imageNamed:@"uncheck.png"];
+//    }else{
+//        cell.imageView.image = [UIImage imageNamed:@"check.png"];
+//    }
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleChecking:)];
+//    [cell.imageView addGestureRecognizer:tap];
+//    cell.imageView.userInteractionEnabled = YES;
     
 }
 
@@ -246,6 +248,8 @@
     CGPoint tapLocation = [tapRecognizer locationInView:self.tableView];
     NSIndexPath *tappedIndexPath = [self.tableView indexPathForRowAtPoint:tapLocation];
     
+//    NSNumber *whatDone = [object valueForKey:@"done"];
+//    if ([whatDone  isEqual: @NO]) {
 //    if ([selectedRowsArray containsObject:[contentArray objectAtIndex:tappedIndexPath.row]]) {
 //        [selectedRowsArray removeObject:[contentArray objectAtIndex:tappedIndexPath.row]];
 //    }
