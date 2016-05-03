@@ -65,16 +65,37 @@
                                     <action selector="cancelButtonTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="fup-gn-HfX"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-0O-MFL">
+                                <rect key="frame" x="276" y="390" width="51" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="WE0-n1-HOv"/>
+                                    <constraint firstAttribute="height" constant="31" id="jrR-wz-EQe"/>
+                                </constraints>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADG-Om-Ch6">
+                                <rect key="frame" x="154" y="395" width="114" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="DG3-Ng-uRA"/>
+                                    <constraint firstAttribute="width" constant="114" id="JqP-T1-rO2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="L8w-NF-86V" firstAttribute="leading" secondItem="hx7-ZN-45L" secondAttribute="trailing" constant="8" id="A2A-nc-Mp0"/>
                             <constraint firstItem="Nr9-Dg-wfs" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="AIC-bh-4fp"/>
+                            <constraint firstItem="ADG-Om-Ch6" firstAttribute="top" secondItem="Nr9-Dg-wfs" secondAttribute="bottom" constant="80" id="Lhe-Se-5Mx"/>
                             <constraint firstItem="Nr9-Dg-wfs" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="LpE-aC-eRW"/>
                             <constraint firstItem="L8w-NF-86V" firstAttribute="top" secondItem="Nr9-Dg-wfs" secondAttribute="bottom" constant="8" id="M07-lm-UGJ"/>
+                            <constraint firstItem="oyw-0O-MFL" firstAttribute="leading" secondItem="ADG-Om-Ch6" secondAttribute="trailing" constant="8" id="U0x-Ah-Wj6"/>
                             <constraint firstItem="hx7-ZN-45L" firstAttribute="top" secondItem="Nr9-Dg-wfs" secondAttribute="bottom" constant="8" id="hyT-LX-fl3"/>
                             <constraint firstItem="L8w-NF-86V" firstAttribute="trailing" secondItem="Nr9-Dg-wfs" secondAttribute="trailing" id="mdR-og-Xat"/>
+                            <constraint firstItem="oyw-0O-MFL" firstAttribute="top" secondItem="hx7-ZN-45L" secondAttribute="bottom" constant="37" id="tLb-lx-At6"/>
                             <constraint firstItem="Nr9-Dg-wfs" firstAttribute="width" secondItem="svH-Pt-448" secondAttribute="width" multiplier="0.5" id="upZ-H1-i2S"/>
+                            <constraint firstItem="oyw-0O-MFL" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="wU0-Fx-RCM"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -83,6 +104,8 @@
                         <outlet property="cancelButton" destination="hx7-ZN-45L" id="GCW-f3-3fs"/>
                         <outlet property="detailTextField" destination="Nr9-Dg-wfs" id="EQa-Ip-CLu"/>
                         <outlet property="saveButton" destination="L8w-NF-86V" id="UzQ-bV-GcD"/>
+                        <outlet property="statusLabel" destination="ADG-Om-Ch6" id="FKJ-sw-xIh"/>
+                        <outlet property="taskCompleteSwitch" destination="oyw-0O-MFL" id="Ak7-v5-Pcd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

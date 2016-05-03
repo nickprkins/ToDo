@@ -117,9 +117,17 @@
 
 - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
     cell.textLabel.text = [[object valueForKey:@"title"] description];
-    cell.detailTextLabel.text = [[object valueForKey:@"timeStamp"] description];
+    NSDate * myDate = [object valueForKey:@"timeStamp"];
     
-    if ([[object valueForKey:@"done"] boolValue] == FALSE) {
+    //Format date to Saturday, May 3, 2016 2:49 PM
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"EEEE MMMM d, YYYY h:mm a"];
+    NSString *finalDate = [formatter stringFromDate:myDate];
+    
+    cell.detailTextLabel.text = finalDate;
+    
+    if ([[[object valueForKey:@"done"] description]  isEqual: @NO]) {
+        NSLog(@"%@", [object valueForKey:@"done"]);
         cell.imageView.image = [UIImage imageNamed:@"uncheck.png"];
     }else{
         cell.imageView.image = [UIImage imageNamed:@"check.png"];
@@ -238,13 +246,13 @@
     CGPoint tapLocation = [tapRecognizer locationInView:self.tableView];
     NSIndexPath *tappedIndexPath = [self.tableView indexPathForRowAtPoint:tapLocation];
     
-    if ([NSManagedObject containsObject:[NSManagedObject objectAtIndex:tappedIndexPath.row]]) {
-        [selectedRowsArray removeObject:[contentArray objectAtIndex:tappedIndexPath.row]];
-    }
-    else {
-        [selectedRowsArray addObject:[contentArray objectAtIndex:tappedIndexPath.row]];
-    }
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:tappedIndexPath] withRowAnimation: UITableViewRowAnimationFade];
+//    if ([selectedRowsArray containsObject:[contentArray objectAtIndex:tappedIndexPath.row]]) {
+//        [selectedRowsArray removeObject:[contentArray objectAtIndex:tappedIndexPath.row]];
+//    }
+//    else {
+//        [selectedRowsArray addObject:[contentArray objectAtIndex:tappedIndexPath.row]];
+//    }
+//    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:tappedIndexPath] withRowAnimation: UITableViewRowAnimationFade];
 }
 
 /*

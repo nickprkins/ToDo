@@ -29,6 +29,13 @@
     // Update the user interface for the detail item.
     if (self.detailItem) {
         self.detailTextField.text = [[self.detailItem valueForKey:@"title"] description];
+        if ([[[self.detailItem valueForKey:@"done"]description]  isEqual: @NO]) {
+            [self.taskCompleteSwitch setOn:NO animated:YES];
+            self.statusLabel.text = [NSString stringWithFormat:@"Task Incomplete "];
+        }else{
+            [self.taskCompleteSwitch setOn:YES animated:YES];
+            self.statusLabel.text = [NSString stringWithFormat:@"Task Complete "];
+        }
     }
 }
 
@@ -50,10 +57,7 @@
 }
 
 -(IBAction)saveButtonTapped:(UIButton*)sender{
-//    NSString * dateString = self.detailTextField.text;
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss +0000"];
-//    NSDate * newDate = [formatter dateFromString:dateString];
+
     [self.detailItem setValue:self.detailTextField.text forKey:@"title"];
     NSError *error;
     
