@@ -28,7 +28,7 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+        self.detailTextField.text = [[self.detailItem valueForKey:@"title"] description];
     }
 }
 
@@ -42,5 +42,31 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(IBAction)cancelButtonTapped:(UIButton*)sender{
+    
+    self.detailTextField.text = [[self.detailItem valueForKey:@"title"] description];
+
+}
+
+-(IBAction)saveButtonTapped:(UIButton*)sender{
+//    NSString * dateString = self.detailTextField.text;
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+//    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss +0000"];
+//    NSDate * newDate = [formatter dateFromString:dateString];
+    [self.detailItem setValue:self.detailTextField.text forKey:@"title"];
+    NSError *error;
+    
+    if (![self.detailItem.managedObjectContext save:&error]) {
+        NSLog(@"unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    self.saveButton.enabled = NO;
+    self.cancelButton.enabled = NO;
+    
+    [self.masterVC detailChangedObject];
+}
+
 
 @end

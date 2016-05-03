@@ -35,6 +35,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+// The C of CRUD is here. Create new objects using the MODEL VIEW to disk.
+
 - (void)insertNewObject:(id)sender {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
@@ -42,7 +44,9 @@
         
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    [newManagedObject setValue:@"Enter a title for To do" forKey:@"title"];
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    [newManagedObject setValue:@NO forKey:@"done"];
         
     // Save the context.
     NSError *error = nil;
@@ -61,6 +65,10 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
+        
+        //our alloc and init point added here.
+        controller.masterVC = self;
+        
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
@@ -90,6 +98,8 @@
     return YES;
 }
 
+// The D of CRUD is here.  Delete objects from database using the CORE DATA MODEL.
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
@@ -106,7 +116,18 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.textLabel.text = [[object valueForKey:@"title"] description];
+    cell.detailTextLabel.text = [[object valueForKey:@"timeStamp"] description];
+    
+    if ([[object valueForKey:@"done"] boolValue] == FALSE) {
+        cell.imageView.image = [UIImage imageNamed:@"uncheck.png"];
+    }else{
+        cell.imageView.image = [UIImage imageNamed:@"check.png"];
+    }
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleChecking:)];
+    [cell.imageView addGestureRecognizer:tap];
+    cell.imageView.userInteractionEnabled = YES;
+    
 }
 
 #pragma mark - Fetched results controller
@@ -119,14 +140,14 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ToDo" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:NO];
 
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
@@ -199,8 +220,35 @@
     [self.tableView endUpdates];
 }
 
+-(void) detailChangedObject{
+    [self.tableView reloadData];
+    
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+
+}
+
+- (void) handleChecking:(UITapGestureRecognizer *)tapRecognizer {
+    CGPoint tapLocation = [tapRecognizer locationInView:self.tableView];
+    NSIndexPath *tappedIndexPath = [self.tableView indexPathForRowAtPoint:tapLocation];
+    
+    if ([NSManagedObject containsObject:[NSManagedObject objectAtIndex:tappedIndexPath.row]]) {
+        [selectedRowsArray removeObject:[contentArray objectAtIndex:tappedIndexPath.row]];
+    }
+    else {
+        [selectedRowsArray addObject:[contentArray objectAtIndex:tappedIndexPath.row]];
+    }
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:tappedIndexPath] withRowAnimation: UITableViewRowAnimationFade];
+}
+
 /*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
+// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
  
  - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
