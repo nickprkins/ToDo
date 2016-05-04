@@ -104,6 +104,9 @@
                                             <constraint firstAttribute="width" constant="24" id="mTu-YP-NOc"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="clock"/>
+                                        <connections>
+                                            <segue destination="ANd-DM-vIG" kind="show" id="tJA-Mn-c0a"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqI-Y2-rbg">
                                         <rect key="frame" x="78" y="102" width="66" height="21"/>
@@ -217,7 +220,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="q5m-ny-sYa">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="q5m-ny-sYa">
                                 <rect key="frame" x="140" y="192" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="484010317.19337201">
                                     <!--2016-05-03 23:18:37 +0000-->
@@ -233,7 +236,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8r0-Id-0fQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1394" y="129"/>
+            <point key="canvasLocation" x="1562" y="-155"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="97C-no-z6A">
+            <objects>
+                <viewController id="ANd-DM-vIG" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RIH-38-gn7"/>
+                        <viewControllerLayoutGuide type="bottom" id="snY-dI-P3H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H9W-iU-spL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0EJ-X3-sMW">
+                                <rect key="frame" x="140" y="192" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="484056230.49537998">
+                                    <!--2016-05-04 12:03:50 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0EJ-X3-sMW" firstAttribute="centerY" secondItem="H9W-iU-spL" secondAttribute="centerY" id="QVN-GX-mMq"/>
+                            <constraint firstItem="0EJ-X3-sMW" firstAttribute="centerX" secondItem="H9W-iU-spL" secondAttribute="centerX" id="cXP-Nm-sb4"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oky-1f-YJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1562" y="541"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">

@@ -32,6 +32,7 @@
     if (self.detailItem) {
         self.detailTextField.text = [[self.detailItem valueForKey:@"title"] description];
         NSNumber *whatDone = [self.detailItem valueForKey:@"done"];
+        
         self.notesTextView.text = [[self.detailItem valueForKey:@"notes"] description];
 //        if ([whatDone  isEqual: @NO]) {
 //            [self.taskCompleteSwitch setOn:NO animated:YES];
